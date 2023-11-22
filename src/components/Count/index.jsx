@@ -1,42 +1,51 @@
 import React, { Component } from 'react'
+//引入store
+import store from '../../redux/store'
 
 export default class Count extends Component {
 
-    state = {count:0}
+    state = {carName:'奔驰c63'}
+
+/*
+    componentDidMount(){
+      //检测redux中状态的变化，只要变化，就调用render
+      store.subscribe(() => {
+        //this.render() 没用
+        this.setState({})
+      })
+    }
+*/
 
     //加法
     increment = () => {
       const {value} = this.selectedNumber
-      const {count} = this.state
-      this.setState({count:count+value*1})
+      store.dispatch({type:'increment',data:value*1})
     }
     //减法
     decrement = () => {
         const {value} = this.selectedNumber
-        const {count} = this.state
-        this.setState({count:count-value*1})
+        store.dispatch({type:'decrement',data:value*1})
     }
     //奇数再加
     incrementIfOdd = () => {
         const {value} = this.selectedNumber
-        const {count} = this.state
+        const count = store.getState()
         if(count % 2 !== 0) {
-            this.setState({count:count+value*1})
+          store.dispatch({type:'increment',data:value*1})
         }
     }
     //异步加（等一会儿加）
     incrementAsync = () => {
         const {value} = this.selectedNumber
-        const {count} = this.state
         setTimeout(()=>{
-            this.setState({count:count+value*1})
+          store.dispatch({type:'increment',data:value*1})
         },500)
     }
 
   render() {
     return (
       <div>
-        <h1>当前求和为：{this.state.count}</h1>
+        <h1>当前求和为：{store.getState()}</h1>
         <select ref={c => this.selectedNumber = c}>
             <option value="1">1</option>
             <option value="2">2</option>
