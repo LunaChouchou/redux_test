@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import {nanoid} from 'nanoid'
 import {connect} from 'react-redux'
-import { createAction } from '@reduxjs/toolkit'
 import { createAddPersonAction } from '../../redux/actions/person'
 
 class Person extends Component {
 
     addPerson = () => {
         const name = this.nameNode.value
-        const age = this.ageNode.value
+        const age = this.ageNode.value*1
         const personObj = {id:nanoid(),name,age}
         this.props.jiayiren(personObj)
         this.nameNode.value = ''
