@@ -9,6 +9,8 @@ import countReducer from './reducers/count'
 import personReducer from './reducers/person'
 //引入redux-thunk，用于支持异步action
 import thunk from 'redux-thunk'
+//引入redux-devtools-extension
+//import {composeWithDevTools} from 'redux-devtools-extension' //不需要在文件里配置也可以用开发者工具了
 
 //汇总所有的reducer变为一个总的reducer
 const allReducer = combineReducers({
@@ -19,5 +21,6 @@ const allReducer = combineReducers({
 //暴露store
 export default configureStore({
     reducer: allReducer,
-    middleware: [thunk]
+    middleware: [thunk],
+    // enhancers: [composeWithDevTools()] //写法fromGPT 不知为啥用了会error 不需要在文件里配置也可以用开发者工具了
 })
